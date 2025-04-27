@@ -1,0 +1,40 @@
+DROP TABLE IF EXISTS ACCOUNT;
+DROP TABLE IF EXISTS AGREEMENT;
+DROP TABLE IF EXISTS BANK;
+DROP TABLE IF EXISTS TYPE_ACCOUNT;
+
+CREATE TABLE TYPE_ACCOUNT (
+                              ID BIGINT PRIMARY KEY AUTO_INCREMENT,
+                              TYPE_ACCOUNT VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE BANK (
+                      ID BIGINT PRIMARY KEY AUTO_INCREMENT,
+                      NAME_FULL VARCHAR(255) NOT NULL,
+                      NAME_SHORT VARCHAR(255) NOT NULL,
+                      INN VARCHAR(20),
+                      BIK VARCHAR(20),
+                      COR_ACCOUNT VARCHAR(30),
+                      ACCOUNT VARCHAR(30),
+                      CITY VARCHAR(50)
+);
+
+CREATE TABLE AGREEMENT (
+                           ID BIGINT PRIMARY KEY AUTO_INCREMENT,
+                           NUMBER VARCHAR(50) NOT NULL,
+                           DATE_OPEN DATE,
+                           DATE_CLOSE DATE,
+                           NOTE VARCHAR(255)
+);
+
+CREATE TABLE ACCOUNT (
+                         ID BIGINT PRIMARY KEY AUTO_INCREMENT,
+                         TYPE_ID BIGINT,
+                         BANK_ID BIGINT,
+                         AGREEMENT_ID BIGINT,
+                         ACCOUNT_NUMBER VARCHAR(255) NOT NULL,
+                         CREATED_AT TIMESTAMP,
+                         FOREIGN KEY (TYPE_ID) REFERENCES TYPE_ACCOUNT(ID),
+                         FOREIGN KEY (BANK_ID) REFERENCES BANK(ID),
+                         FOREIGN KEY (AGREEMENT_ID) REFERENCES AGREEMENT(ID)
+);

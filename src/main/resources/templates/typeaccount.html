@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+  <link rel="stylesheet" href="/css/style.css">
+  <title>Типы счетов</title>
+</head>
+<body>
+
+<h1>Типы счетов</h1>
+
+<form th:action="@{/typeaccounts}" th:object="${typeaccount}" method="post">
+  <input type="hidden" th:value="${typeaccount.id}" th:field="*{id}" />
+  Тип счета: <input type="text" th:field="*{typeAccount}" /><br/>
+  <span th:if="${#fields.hasErrors('typeAccount')}" th:errors="*{typeAccount}">Type Account Error</span><br/>
+  <button type="submit">Сохранить</button>
+</form>
+
+
+<h2>Список типов счетов</h2>
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Тип счета</th>
+    <th>Действия</th>
+  </tr>
+  <tr th:each="ta : ${typeaccounts}">
+    <td th:text="${ta.id}"></td>
+    <td th:text="${ta.typeAccount}"></td>
+    <td>
+      <a th:href="@{'/typeaccounts/edit/' + ${ta.id}}">Редактировать</a> <!-- Кнопка редактирования -->
+      <a th:href="@{'/typeaccounts/delete/' + ${ta.id}}">Удалить</a>
+    </td>
+  </tr>
+</table>
+
+
+<a href="/">На главную</a>
+
+</body>
+</html>

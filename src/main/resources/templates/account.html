@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Счета</title>
+</head>
+<body>
+<div class="container">
+    <h1>Список счетов</h1>
+
+    <!-- Форма для создания или редактирования счета -->
+    <form action="#" th:action="@{/accounts}" th:object="${account}" method="post">
+        <input type="hidden" th:value="${account.id}" name="id" /> <!-- скрытое поле для ID -->
+        <div class="form-group">
+            <label for="accountNumber">Номер счета:</label>
+            <input type="text" id="accountNumber" th:field="*{accountNumber}" />
+            <div th:if="${#fields.hasErrors('accountNumber')}" class="error" th:errors="*{accountNumber}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="typeId">ID типа счета:</label>
+            <input type="number" id="typeId" th:field="*{typeId}" />
+            <div th:if="${#fields.hasErrors('typeId')}" class="error" th:errors="*{typeId}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="bankId">ID банка:</label>
+            <input type="number" id="bankId" th:field="*{bankId}" />
+            <div th:if="${#fields.hasErrors('bankId')}" class="error" th:errors="*{bankId}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="agreementId">ID договора:</label>
+            <input type="number" id="agreementId" th:field="*{agreementId}" />
+            <div th:if="${#fields.hasErrors('agreementId')}" class="error" th:errors="*{agreementId}"></div>
+        </div>
+
+        <button type="submit" class="btn">
+            <!-- Если счет существует (в форме редактирования), то кнопка будет "Обновить", иначе "Создать" -->
+            <span th:if="${account.id != null}">Обновить</span>
+            <span th:if="${account.id == null}">Создать</span>
+        </button>
+    </form>
+
+    <!-- Список счетов -->
+    <h2>Все счета</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Номер счета</th>
+            <th>Тип счета</th>
+            <th>Банк</th>
+            <th>Договор</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="account : ${accounts}">
+            <td th:text="${account.accountNumber}"></td>
+            <td th:text="${account.typeId}"></td>
+            <td th:text="${account.bankId}"></td>
+            <td th:text="${account.agreementId}"></td>
+            <td>
+                <!-- Ссылка на редактирование -->
+                <a th:href="@{/accounts/edit/{id}(id=${account.id})}">Редактировать</a>
+                <!-- Ссылка на удаление -->
+                <a th:href="@{/accounts/delete/{id}(id=${account.id})}">Удалить</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

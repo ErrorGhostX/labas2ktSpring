@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <title>Банки</title>
+</head>
+<body>
+
+<h1>Банки</h1>
+
+<form th:action="@{/banks}" th:object="${bank}" method="post">
+    <input type="hidden" th:value="${bank.id}" th:field="*{id}" />
+    Полное название: <input type="text" th:field="*{nameFull}" /><br/>
+    <span th:if="${#fields.hasErrors('nameFull')}" th:errors="*{nameFull}">Name Full Error</span><br/>
+    Краткое название: <input type="text" th:field="*{nameShort}" /><br/>
+    <span th:if="${#fields.hasErrors('nameShort')}" th:errors="*{nameShort}">Name Short Error</span><br/>
+    ИНН: <input type="text" th:field="*{inn}" /><br/>
+    <span th:if="${#fields.hasErrors('inn')}" th:errors="*{inn}">INN Error</span><br/>
+    БИК: <input type="text" th:field="*{bik}" /><br/>
+    <span th:if="${#fields.hasErrors('bik')}" th:errors="*{bik}">Bik Error</span><br/>
+    Корсчет: <input type="text" th:field="*{corAccount}" /><br/>
+    <span th:if="${#fields.hasErrors('corAccount')}" th:errors="*{corAccount}">Cor Account Error</span><br/>
+    Номер счета: <input type="text" th:field="*{account}" /><br/>
+    <span th:if="${#fields.hasErrors('account')}" th:errors="*{account}">Account Error</span><br/>
+    Город: <input type="text" th:field="*{city}" /><br/>
+    <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}">City Error</span><br/>
+    <button type="submit">Сохранить</button>
+</form>
+
+
+
+<h2>Список банков</h2>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Полное название</th>
+        <th>Действия</th>
+    </tr>
+    <tr th:each="bank : ${banks}">
+        <td th:text="${bank.id}"></td>
+        <td th:text="${bank.nameFull}"></td>
+        <td>
+            <a th:href="@{'/banks/edit/' + ${bank.id}}">Редактировать</a> <!-- Кнопка редактирования -->
+            <a th:href="@{'/banks/delete/' + ${bank.id}}">Удалить</a>
+        </td>
+    </tr>
+</table>
+
+
+<a href="/">На главную</a>
+
+</body>
+</html>

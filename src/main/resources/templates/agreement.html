@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head
+  <link rel="stylesheet" href="/css/style.css">
+
+  <title>Договоры</title>
+</head>
+<body>
+
+<h1>Договоры</h1>
+
+<form th:action="@{/agreements}" th:object="${agreement}" method="post">
+  <input type="hidden" th:value="${agreement.id}" th:field="*{id}" />
+  Номер договора: <input type="text" th:field="*{number}" /><br/>
+  <span th:if="${#fields.hasErrors('number')}" th:errors="*{number}">Agreement Number Error</span><br/>
+  Дата открытия: <input type="date" th:field="*{dateOpen}" /><br/>
+  <span th:if="${#fields.hasErrors('dateOpen')}" th:errors="*{dateOpen}">Date Open Error</span><br/>
+  Дата закрытия: <input type="date" th:field="*{dateClose}" /><br/>
+  <span th:if="${#fields.hasErrors('dateClose')}" th:errors="*{dateClose}">Date Close Error</span><br/>
+  Примечание: <input type="text" th:field="*{note}" /><br/>
+  <span th:if="${#fields.hasErrors('note')}" th:errors="*{note}">Note Error</span><br/>
+  <button type="submit">Сохранить</button>
+</form>
+
+
+
+<h2>Список договоров</h2>
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Номер договора</th>
+    <th>Действия</th>
+  </tr>
+  <tr th:each="agreement : ${agreements}">
+    <td th:text="${agreement.id}"></td>
+    <td th:text="${agreement.number}"></td>
+    <td>
+      <a th:href="@{'/agreements/edit/' + ${agreement.id}}">Редактировать</a> <!-- Кнопка редактирования -->
+      <a th:href="@{'/agreements/delete/' + ${agreement.id}}">Удалить</a>
+    </td>
+  </tr>
+</table>
+
+<a href="/">На главную</a>
+
+</body>
+</html>

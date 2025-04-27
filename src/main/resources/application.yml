@@ -1,0 +1,14 @@
+
+spring:
+datasource:
+generate-unique-name: false
+name: onlinestore
+h2:
+console:
+enabled: true
+jdbc:
+template:
+query-timeout: 10s
+
+server:
+port: 8080

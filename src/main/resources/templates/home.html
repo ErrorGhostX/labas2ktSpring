@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <meta charset="UTF-8">
+    <title>BaseBlock Accounting</title>
+</head>
+<body>
+<h1>Добро пожаловать в систему учета счетов клиентов!</h1>
+<img th:src="@{/logo.png}" alt="Логотип" width="250">
+<ul>
+    <li><a th:href="@{/accounts}">Счета клиентов</a></li>
+    <li><a th:href="@{/banks}">Банки</a></li>
+    <li><a th:href="@{/typeaccounts}">Типы счетов</a></li>
+    <li><a th:href="@{/agreements}">Договоры</a></li>
+</ul>
+</body>
+</html>
