@@ -4,6 +4,7 @@ import com.example.labs2kt.model.Account;
 import com.example.labs2kt.repository.AccountRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,14 +16,14 @@ import org.springframework.web.bind.annotation.*;
 public class AccountController {
 
     private final AccountRepository accountRepository;
-
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping
     public String listAccounts(Model model) {
         model.addAttribute("accounts", accountRepository.findAll());
         model.addAttribute("account", new Account());
         return "account";
     }
-
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @PostMapping
     public String saveAccount(@Valid @ModelAttribute("account") Account account, BindingResult result, Model model) {
         if (result.hasErrors()) {

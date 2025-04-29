@@ -4,6 +4,7 @@ import com.example.labs2kt.model.Agreement;
 import com.example.labs2kt.repository.AgreementRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,14 +15,14 @@ import org.springframework.web.bind.annotation.*;
 public class AgreementController {
 
     private final AgreementRepository agreementRepository;
-
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping
     public String listAgreements(Model model) {
         model.addAttribute("agreements", agreementRepository.findAll());
         model.addAttribute("agreement", new Agreement());
         return "agreement";
     }
-
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @PostMapping
     public String saveAgreement(@Valid @ModelAttribute("agreement") Agreement agreement, BindingResult result, Model model) {
         if (result.hasErrors()) {

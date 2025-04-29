@@ -4,6 +4,7 @@ import com.example.labs2kt.model.Bank;
 import com.example.labs2kt.repository.BankRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,14 +15,14 @@ import org.springframework.web.bind.annotation.*;
 public class BankController {
 
     private final BankRepository bankRepository;
-
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping
     public String listBanks(Model model) {
         model.addAttribute("banks", bankRepository.findAll());
         model.addAttribute("bank", new Bank());
         return "bank";
     }
-
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @PostMapping
     public String saveBank(@Valid @ModelAttribute("bank") Bank bank, BindingResult result, Model model) {
         if (result.hasErrors()) {
