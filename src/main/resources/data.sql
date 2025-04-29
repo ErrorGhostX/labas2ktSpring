@@ -34,3 +34,4 @@ VALUES (2, 2, 2, '40817810000007654321', CURRENT_TIMESTAMP);
 -- Пользователи
 INSERT INTO USERS (username, password, email, role) VALUES ('admin', '$2a$10$7V0bL6Y0i4eRk5dK5B2b3a$W9x8v7u6t5s4r3q2p1', 'volnikov.yar@gmail.com', 'ADMIN');
 INSERT INTO USERS (username, password, email, role) VALUES ('user', '$2a$10$7V0bL6Y0i4eRk5dK5B2b3a$W9x8v7u6t5s4r3q2p2', 'errorghostx@gmail.com', 'USER');
+

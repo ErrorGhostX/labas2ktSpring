@@ -1,12 +1,11 @@
 package com.example.labs2kt.model;
 
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
-
-import jakarta.validation.constraints.NotBlank;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -18,7 +17,7 @@ public class Account {
     @Id
     private Long id;
 
-    @NotNull(message = "Номер счета не может быть пустым.")
+    @NotBlank(message = "Номер счета не может быть пустым.") // Заменено на NotBlank
     private String accountNumber;
 
     @NotNull(message = "ID типа счета не может быть пустым.")
